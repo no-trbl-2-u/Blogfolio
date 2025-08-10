@@ -63,17 +63,17 @@ const TextOverlay = styled.div<{ delay?: number }>`
     }
 `
 
-const Subtitle = styled.div<{ delay?: number }>`
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 1.2rem;
-    font-weight: 200;
-    letter-spacing: 0.1em;
-    text-align: center;
-    margin-top: 0.5rem;
-    opacity: 0;
-    animation: fadeInUp 1.2s ease-out forwards;
-    animation-delay: ${props => props.delay || 0}s;
-`
+// const Subtitle = styled.div<{ delay?: number }>`
+//     color: rgba(255, 255, 255, 0.8);
+//     font-size: 1.2rem;
+//     font-weight: 200;
+//     letter-spacing: 0.1em;
+//     text-align: center;
+//     margin-top: 0.5rem;
+//     opacity: 0;
+//     animation: fadeInUp 1.2s ease-out forwards;
+//     animation-delay: ${props => props.delay || 0}s;
+// `
 
 function LandingPage() {
     return (
