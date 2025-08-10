@@ -155,7 +155,7 @@ function Card(props) {
     );
 }
 
-function BlogLayout() {
+function BlogPage() {
     const navigate = useNavigate();
 
     const handleBackClick = () => {
@@ -384,4 +384,4 @@ function BlogLayout() {
     );
 }
 
-export default BlogLayout;
+export default BlogPage;
