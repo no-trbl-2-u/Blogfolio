@@ -7,13 +7,20 @@ const LayoutContainer = styled.div`
     min-height: 100vh;
 `
 
-function Layout({ children }: { children: React.ReactNode }) {
+function Layout({ children, defaultLayout = false }: { children: React.ReactNode, defaultLayout?: boolean }) {
+
+    if (!defaultLayout) {
+        return (
+            <LayoutContainer>
+                {children}
+            </LayoutContainer>
+        )
+    }
     return (
         <LayoutContainer>
             <div>TODO - HEADER</div>
             <div>TODO - Routing</div>
             {children}
-            <div>TODO - FOOTER</div>
         </LayoutContainer>
     )
 }

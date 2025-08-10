@@ -21,10 +21,18 @@
     "jsx": "react-jsx",
     "baseUrl": "src",
     "paths": {
-      "@Pages/*": ["Pages/*"],
-      "@Components/*": ["Components/*"],
-      "@Hooks/*": ["Hooks/*"]
-    }
+      "@Pages/*": [
+        "Pages/*"
+      ],
+      "@Components/*": [
+        "Components/*"
+      ],
+      "@Hooks/*": [
+        "Hooks/*"
+      ]
+    },
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
   },
   "include": [
     "src"
