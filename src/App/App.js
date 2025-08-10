@@ -1,9 +1,9 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Layout from '@Pages/Layout/Layout';
-import LandingPage from '@Pages/LandingPage/LandingPage';
-import BlogPage from '@Pages/BlogPage/BlogPage';
-import WorkPage from '@Pages/WorkPage/WorkPage';
+import Layout from '@Pages/Layout';
+import LandingPage from '@Pages/LandingPage';
+import BlogPage from '@Pages/BlogPage';
+import WorkPage from '@Pages/WorkPage';
 
 function App() {
   return (
