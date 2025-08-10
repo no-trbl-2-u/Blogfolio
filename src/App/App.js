@@ -2,7 +2,8 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from '@Pages/Layout';
 import LandingPage from '@Pages/LandingPage';
-import BlogPage from '@Pages/BlogPage';
+// TODO: Fix ME!
+import BlogPage from '../Pages/BlogPage/BlogPage';
 import WorkPage from '@Pages/WorkPage/WorkPage';
 
 function App() {

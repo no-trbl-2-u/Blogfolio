@@ -23,16 +23,19 @@ Blogfolio is a an outlet for me (Anthony "TJ" Allen) to post blogs about my lear
 - [x] Create rough idea for wireframes (pt 1)
 
 ## Day 2: Core Components & Routing
-- [ ] Install and configure React Router
-- [ ] Create main layout components (Header, Footer, Sidebar)
-- [ ] Expand `<Layout />` component to standardize global components (ie. Header, Footer) pt1 
+- [x] Install and configure React Router
+~- [ ] Create main layout components (Header, Footer, Sidebar)~
+- [x] Create skeleton for BlogPage
+~- [ ] Expand `<Layout />` component to standardize global components (ie. Header, Footer) pt1~
 - [ ] Build navigation component with TypeScript interfaces
-- [ ] Set up basic routing structure (Home, Blog, About, Contact)
-- [ ] Style core layout components with CSS-in-JS
-- [ ] Test responsive design basics
-- [ ] Refine Wireframes to conclude layout of "Home" (pt 2)
+- [x] Set up basic routing structure (Home, Blog, About, Contact)
+- [x] Style core layout components with CSS-in-JS
+- [x] Test responsive design basics
+- [x] Refine Wireframes to conclude layout of "Home" (pt 2)
+- [ ] Refactor BlogPage
 
 ## Day 3: Markdown Integration
+- [ ] Somehow fix the video to loop properly
 - [ ] Research and choose markdown processor (react-markdown or marked)
 - [ ] Install markdown dependencies and syntax highlighting
 - [ ] Create markdown renderer component with TypeScript
@@ -42,7 +45,7 @@ Blogfolio is a an outlet for me (Anthony "TJ" Allen) to post blogs about my lear
 - [ ] Contineu to Refine Wireframes to conclude layout of "Home" (pt 3)
 
 ## Day 4: Blog Post Components
-- [ ] Create the "basic" wireframe for a blog Post card (pt4) 
+- [x] Create the "basic" wireframe for a blog Post card (pt4) 
 - [ ] Create BlogPost interface and types
 - [ ] Build BlogPostCard component for listing view
 - [ ] Create BlogPostDetail component for individual posts
@@ -51,7 +54,7 @@ Blogfolio is a an outlet for me (Anthony "TJ" Allen) to post blogs about my lear
 - [ ] Add loading states and error handling
 
 ## Day 5: Blog Listing & Navigation
-- [ ] Create layout for Blog Post Page 
+- [x] Create layout for Blog Post Page 
 - [ ] Create blog listing page with pagination
 - [ ] Implement search functionality (client-side initially)
 - [ ] Add filtering by categories/tags
@@ -298,26 +301,3 @@ Blogfolio is a an outlet for me (Anthony "TJ" Allen) to post blogs about my lear
 - **Domain & SSL**: Route 53 + Certificate Manager
 - **Monitoring**: CloudWatch
 - **CI/CD**: CodePipeline or GitHub Actions
-
----
-
-## Daily Checklist Format
-
-For each day, use this format:
-
-**Daily Goals**: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
-**Completed Tasks**:
-- [ ] Task 1
-- [ ] Task 2
-- [ ] Task 3
-
-**Challenges Encountered**: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
-**Solutions Found**: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
-**Tomorrow's Priority**: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
-**Notes & Learning**: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
----
