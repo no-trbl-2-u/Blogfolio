@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import Layout from '@Pages/Layout';
+import { useNavigate } from 'react-router-dom';
 
 const LandingPageContainer = styled.div`
     display: flex;
@@ -40,7 +41,9 @@ const TextOverlayContainer = styled.div`
     padding: 0 8vw;
 `
 
-const TextOverlay = styled.div<{ delay?: number }>`
+// const TextOverlay = styled.div<{ delay?: number }>`
+const TextOverlay = styled.div`
+    cursor: pointer;
     color: rgba(249, 25, 0, 0.31);
     font-weight: 600;
     font-size: 5vw;
@@ -52,7 +55,6 @@ const TextOverlay = styled.div<{ delay?: number }>`
     animation-delay: ${props => props.delay || 0}s;
     
     &:hover {
-        cursor: pointer;
         transition: all 0.3s ease;
         text-shadow:
         -1px -1px 1px rgba(255, 255, 255, 0.1),
@@ -76,6 +78,16 @@ const TextOverlay = styled.div<{ delay?: number }>`
 // `
 
 function LandingPage() {
+    const navigate = useNavigate();
+
+    const handleBlogClick = () => {
+        navigate('/blog');
+    };
+
+    const handleWorkClick = () => {
+        navigate('/work');
+    };
+
     return (
         <Layout>
             <LandingPageContainer>
@@ -87,12 +99,17 @@ function LandingPage() {
 
                 <TextOverlayContainer>
                     <div>
-                        <TextOverlay delay={0.3}>Work</TextOverlay>
+                        <TextOverlay delay={0.3} onClick={handleWorkClick}>Work</TextOverlay>
                         {/* <Subtitle delay={0.6}>Showcasing my creative journey</Subtitle> */}
                     </div>
 
                     <div>
-                        <TextOverlay delay={0.3}>Blog</TextOverlay>
+                        <TextOverlay
+                            delay={0.3}
+                            onClick={handleBlogClick}
+                        >
+                            Blog
+                        </TextOverlay>
                         {/* <Subtitle delay={1.2}>Thoughts, insights & discoveries</Subtitle> */}
                     </div>
                 </TextOverlayContainer>
