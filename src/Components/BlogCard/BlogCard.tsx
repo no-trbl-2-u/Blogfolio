@@ -1,13 +1,16 @@
-import React, { useCallback } from 'react';
-import { Eye } from 'lucide-react'
-import styled from '@emotion/styled'
-import { useRef } from 'react'
+/* Libraries */
+import React, { useCallback, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Eye } from 'lucide-react';
+import styled from '@emotion/styled';
 
+/* Types */
 interface BlogCardProps {
   image: string;
   title: string;
   summary: string;
   index: number;
+  slug?: string; // Add slug prop
 }
 
 // Different irregular shapes for each card
@@ -93,7 +96,8 @@ const EyeIcon = styled(Eye)`
   `
 // Card Component
 function BlogCard(props: BlogCardProps) {
-  const { image, title, summary, index } = props
+  const { image, title, summary, index, slug } = props;
+  const navigate = useNavigate();
 
   // Refs for DOM elements
   const cardRef = useRef<HTMLDivElement>(null)
@@ -136,6 +140,12 @@ function BlogCard(props: BlogCardProps) {
     }
   }, [])
 
+  const handleCardClick = useCallback(() => {
+    if (slug) {
+      navigate(`/blog/${slug}`);
+    }
+  }, [slug, navigate]);
+
   return (
     <CardContainer
       $index={index}
@@ -143,6 +153,7 @@ function BlogCard(props: BlogCardProps) {
       className="card-container"
       onMouseEnter={handleMouseEnterCard}
       onMouseLeave={handleMouseLeaveCard}
+      onClick={handleCardClick} // Add click handler
     >
       <CardContent>
         <ImageSection>

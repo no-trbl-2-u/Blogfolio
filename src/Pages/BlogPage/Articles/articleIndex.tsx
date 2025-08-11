@@ -1,6 +1,20 @@
-import { BlogPost } from '@Types'
+/* Content Imports */
+import article080925 from "./080925.md";
 
+/* Types */
+import { BlogPost } from "@Types";
+
+/* Mock Data */
 export const mockPosts: BlogPost[] = [
+    {
+        title: "Day One",
+        date: "2025-08-09",
+        summary: "This is my first blog post.",
+        image: "https://picsum.photos/200/300",
+        content: article080925,
+        tags: ["React", "TypeScript", "Markdown", "About Me"],
+        slug: "day-one",
+    },
     {
         image: "https://picsum.photos/200/300",
         title: "The Endless Hallway",
@@ -31,4 +45,21 @@ export const mockPosts: BlogPost[] = [
         title: "After Hours Mall",
         summary: "Empty storefronts with grates pulled down, escalators running to serve no one."
     }
-]
+];
+
+/* Articles Array */
+const articles: BlogPost[] = [
+    {
+        title: "Day One",
+        date: "2025-08-09",
+        summary: "This is my first blog post.",
+        image: "https://picsum.photos/200/300",
+        content: article080925,
+        tags: ["React", "TypeScript", "Markdown", "About Me"],
+        slug: "day-one",
+    }
+];
+
+// TODO: Eventually convert this file to index.ts and adjust alias 
+// so it's import articles from '@Articles'
+export default articles;

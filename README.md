@@ -9,6 +9,32 @@ Blogfolio is a an outlet for me (Anthony "TJ" Allen) to post blogs about my lear
 - Try to logic my way into `Faith`
 - And all sorts of various ideas
 
+## Formatting and Variable Standards:
+1) Import Order:
+    * /* Libraries */ - React, external libraries
+    * /* Components */ - Internal component imports
+    * /* Types */ - Type imports
+    * /* Content Imports */ - For content files
+    * /* Mock Data */ - For data arrays
+
+2) Styled Components:
+    * Properties aligned with first letter of component name
+    * Consistent 2-space indentation
+    * Proper semicolons
+
+3) Component Structure:
+    * /* Main Component */ comment before the main function
+
+    * Consistent spacing and formatting
+
+4) General Formatting:
+    * Consistent semicolon usage
+    * Proper spacing between sections
+    * Clean, readable structure
+
+5) Variable Names:
+    * Booleans must have "is", "has", or any other boolean-specific wordage
+
 ## Roadmap
 # Phase 1: Frontend Foundation (Days 1-12)
 
@@ -36,13 +62,15 @@ Blogfolio is a an outlet for me (Anthony "TJ" Allen) to post blogs about my lear
 - [x] Refactor BlogCard
 
 ## Day 3: Markdown Integration
-- [ ] Research and choose markdown processor (react-markdown or marked)
-- [ ] Install markdown dependencies and syntax highlighting
-- [ ] Create markdown renderer component with TypeScript
-- [ ] Test markdown rendering with sample content
+- [x] Research and choose markdown processor (react-markdown or marked)
+- [x] Install markdown dependencies and syntax highlighting
+- [x] Create markdown renderer component with TypeScript
+- [x] Test markdown rendering with sample content
+- [ ] Create BlogHeader
+- [ ] Animate it shrinking
 - [ ] Add support for code blocks with syntax highlighting
 - [ ] Handle markdown metadata (frontmatter parsing)
-- [ ] Contineu to Refine Wireframes to conclude layout of "Home" (pt 3)
+- [ ] Continue to Refine Wireframes to conclude layout of "Home" (pt 3)
 
 ## Day 4: Blog Post Components
 - [ ] Somehow fix the video to loop properly
