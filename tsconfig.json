@@ -29,6 +29,12 @@
       ],
       "@Hooks/*": [
         "Hooks/*"
+      ],
+      "@Articles/*": [
+        "Pages/BlogPage/Articles/*"
+      ],
+      "@Types": [
+        "types"
       ]
     },
     "noUnusedLocals": false,
