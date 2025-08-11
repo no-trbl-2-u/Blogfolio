@@ -17,7 +17,7 @@ const Header = styled.header<{ $isExtended: boolean; $isAnimating: boolean }>`
       transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
       min-height: ${({ $isExtended }) => $isExtended ? 'auto' : '100px'};
       max-height: ${({ $isExtended, $isAnimating }) =>
-    $isExtended ? '500px' : ($isAnimating ? '100px' : '500px')
+    $isExtended ? '800px' : ($isAnimating ? '100px' : '500px')
   };
 
       ::after {
@@ -35,7 +35,7 @@ const Header = styled.header<{ $isExtended: boolean; $isAnimating: boolean }>`
 const HeaderContent = styled.div<{ $isExtended: boolean }>`
       max-width: 1280px;
       margin: 0 auto;
-      padding: ${({ $isExtended }) => $isExtended ? '48px 24px' : '24px 24px'};
+      padding: 24px;
       position: relative;
       z-index: 10;
       transition: padding 0.8s cubic-bezier(0.4, 0, 0.2, 1);

@@ -50,9 +50,8 @@ Blogfolio is a an outlet for me (Anthony "TJ" Allen) to post blogs about my lear
 
 ## Day 2: Core Components & Routing
 - [x] Install and configure React Router
-~- [ ] Create main layout components (Header, Footer, Sidebar)~
+- [x] Create main layout components (Header, Footer, Sidebar)
 - [x] Create skeleton for BlogPage
-~- [ ] Expand `<Layout />` component to standardize global components (ie. Header, Footer) pt1~
 - [x] Set up basic routing structure (Home, Blog, About, Contact)
 - [x] Style core layout components with CSS-in-JS
 - [x] Test responsive design basics
@@ -62,31 +61,34 @@ Blogfolio is a an outlet for me (Anthony "TJ" Allen) to post blogs about my lear
 - [x] Refactor BlogCard
 
 ## Day 3: Markdown Integration
-- [x] Research and choose markdown processor (react-markdown or marked)
-- [x] Install markdown dependencies and syntax highlighting
-- [x] Create markdown renderer component with TypeScript
-- [x] Test markdown rendering with sample content
-- [ ] Create BlogHeader
-- [ ] Animate it shrinking
-- [ ] Add support for code blocks with syntax highlighting
-- [ ] Handle markdown metadata (frontmatter parsing)
-- [ ] Continue to Refine Wireframes to conclude layout of "Home" (pt 3)
+- [x] Create BlogHeader
+- [ ] Determine methodology for rendering articles (Had trouble with React-Markdown)
+    - [ ] Research and choose markdown processor (react-markdown or marked)
+    - [ ] Install markdown dependencies and syntax highlighting
+    - [ ] Create markdown renderer component with TypeScript
+    - [ ] Test markdown rendering with sample content
+    - [ ] Add support for code blocks with syntax highlighting
+    - [ ] Handle markdown metadata (frontmatter parsing)
+- [x] Continue to Refine Wireframes to conclude layout of "Home" (pt 3)
 
 ## Day 4: Blog Post Components
+- [ ] Fix the animation shrinkage
 - [ ] Somehow fix the video to loop properly
-- [ ] Create BlogPost interface and types
-- [ ] Build BlogPostCard component for listing view
-- [ ] Create BlogPostDetail component for individual posts
+- [x] Create BlogPost interface and types
+- [x] Build BlogPostCard component for listing view
+- [x] Create BlogPostDetail component for individual posts
 - [ ] Implement blog post metadata display (date, author, tags)
-- [ ] Style blog components with responsive design
+- [x] Style blog components with responsive design
 - [ ] Add loading states and error handling
 
 ## Day 5: Blog Listing & Navigation
+- [x] Animate BlogHeader shrinking
+- [ ] Animate BlogHeader Growing
 - [x] Create layout for Blog Post Page 
-- [ ] Create blog listing page with pagination
+- [ ] Create blog listing page's infinite scroll (lazy-loading to come)
 - [ ] Implement search functionality (client-side initially)
 - [ ] Add filtering by categories/tags
-- [ ] Create breadcrumb navigation
+- [x] Create breadcrumb navigation
 - [ ] Add sorting options (date, popularity, alphabetical)
 - [ ] Style pagination and filter components
 
@@ -168,6 +170,7 @@ Blogfolio is a an outlet for me (Anthony "TJ" Allen) to post blogs about my lear
 - [ ] Create database migration scripts
 - [ ] Add data validation and sanitization
 - [ ] Test database operations
+- [ ] Lazy load blogposts from backend
 
 ## Day 15: Authentication System
 - [ ] Implement JWT-based authentication

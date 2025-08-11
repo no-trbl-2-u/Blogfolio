@@ -1,5 +1,3 @@
-/* Content Imports */
-import article080925 from "./080925.md";
 
 /* Types */
 import { BlogPost } from "@Types";
@@ -11,7 +9,6 @@ export const mockPosts: BlogPost[] = [
         date: "2025-08-09",
         summary: "This is my first blog post.",
         image: "https://picsum.photos/200/300",
-        content: article080925,
         tags: ["React", "TypeScript", "Markdown", "About Me"],
         slug: "day-one",
     },
@@ -54,7 +51,7 @@ const articles: BlogPost[] = [
         date: "2025-08-09",
         summary: "This is my first blog post.",
         image: "https://picsum.photos/200/300",
-        content: article080925,
+        // content: article080925,
         tags: ["React", "TypeScript", "Markdown", "About Me"],
         slug: "day-one",
     }
