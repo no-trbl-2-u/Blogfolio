@@ -27,15 +27,15 @@ Blogfolio is a an outlet for me (Anthony "TJ" Allen) to post blogs about my lear
 ~- [ ] Create main layout components (Header, Footer, Sidebar)~
 - [x] Create skeleton for BlogPage
 ~- [ ] Expand `<Layout />` component to standardize global components (ie. Header, Footer) pt1~
-- [ ] Build navigation component with TypeScript interfaces
 - [x] Set up basic routing structure (Home, Blog, About, Contact)
 - [x] Style core layout components with CSS-in-JS
 - [x] Test responsive design basics
 - [x] Refine Wireframes to conclude layout of "Home" (pt 2)
-- [ ] Refactor BlogPage
+- [x] Create the "basic" wireframe for a blog Post card (pt4) 
+- [x] Refactor BlogPage
+- [x] Refactor BlogCard
 
 ## Day 3: Markdown Integration
-- [ ] Somehow fix the video to loop properly
 - [ ] Research and choose markdown processor (react-markdown or marked)
 - [ ] Install markdown dependencies and syntax highlighting
 - [ ] Create markdown renderer component with TypeScript
@@ -45,7 +45,7 @@ Blogfolio is a an outlet for me (Anthony "TJ" Allen) to post blogs about my lear
 - [ ] Contineu to Refine Wireframes to conclude layout of "Home" (pt 3)
 
 ## Day 4: Blog Post Components
-- [x] Create the "basic" wireframe for a blog Post card (pt4) 
+- [ ] Somehow fix the video to loop properly
 - [ ] Create BlogPost interface and types
 - [ ] Build BlogPostCard component for listing view
 - [ ] Create BlogPostDetail component for individual posts
