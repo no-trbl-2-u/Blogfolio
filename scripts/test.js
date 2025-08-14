@@ -1,3 +1,4 @@
+/* eslint-env node */
 'use strict';
 
 // Do this as the first thing so that any code reading it knows the right env.
@@ -17,7 +18,7 @@ require('../config/env');
 
 const jest = require('jest');
 const execSync = require('child_process').execSync;
-let argv = process.argv.slice(2);
+const argv = process.argv.slice(2);
 
 function isInGitRepository() {
   try {

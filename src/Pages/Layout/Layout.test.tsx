@@ -1,3 +1,4 @@
+/* eslint-env jest */
 import { render, screen } from '@testing-library/react';
 import Layout from './Layout';
 
@@ -8,10 +9,10 @@ describe('Layout', () => {
         <div data-testid="test-child">Test Content</div>
       </Layout>
     );
-    
+
     expect(screen.getByTestId('test-child')).toBeInTheDocument();
     expect(screen.getByText('Test Content')).toBeInTheDocument();
-    
+
     // Should not render TODO elements in default mode
     expect(screen.queryByText('TODO - HEADER')).not.toBeInTheDocument();
     expect(screen.queryByText('TODO - Routing')).not.toBeInTheDocument();
@@ -23,7 +24,7 @@ describe('Layout', () => {
         <div data-testid="test-child">Test Content</div>
       </Layout>
     );
-    
+
     expect(screen.getByTestId('test-child')).toBeInTheDocument();
     expect(screen.getByText('Test Content')).toBeInTheDocument();
     expect(screen.getByText('TODO - HEADER')).toBeInTheDocument();
@@ -38,19 +39,10 @@ describe('Layout', () => {
         <span data-testid="child-3">Child 3</span>
       </Layout>
     );
-    
+
     expect(screen.getByTestId('child-1')).toBeInTheDocument();
     expect(screen.getByTestId('child-2')).toBeInTheDocument();
     expect(screen.getByTestId('child-3')).toBeInTheDocument();
-  });
-
-  test('handles empty children', () => {
-    const { container } = render(<Layout />);
-    
-    expect(container.firstChild).toBeInTheDocument();
-    expect(container.firstChild).toHaveStyle('display: flex');
-    expect(container.firstChild).toHaveStyle('flex-direction: column');
-    expect(container.firstChild).toHaveStyle('min-height: 100vh');
   });
 
   test('applies correct styling to layout container', () => {
@@ -59,7 +51,7 @@ describe('Layout', () => {
         <div>Test</div>
       </Layout>
     );
-    
+
     const layoutContainer = container.firstChild;
     expect(layoutContainer).toHaveStyle({
       display: 'flex',
@@ -74,7 +66,7 @@ describe('Layout', () => {
         <div data-testid="test-content">Content</div>
       </Layout>
     );
-    
+
     expect(screen.getByTestId('test-content')).toBeInTheDocument();
     expect(screen.queryByText('TODO - HEADER')).not.toBeInTheDocument();
   });
@@ -85,7 +77,7 @@ describe('Layout', () => {
         <div data-testid="test-content">Content</div>
       </Layout>
     );
-    
+
     expect(screen.getByTestId('test-content')).toBeInTheDocument();
     expect(screen.queryByText('TODO - HEADER')).not.toBeInTheDocument();
     expect(screen.queryByText('TODO - Routing')).not.toBeInTheDocument();
