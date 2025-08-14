@@ -73,73 +73,10 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "jest --config jest.config.js"
   },
   "jest": {
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}",
-      "!src/**/*.d.ts"
-    ],
-    "setupFiles": [
-      "react-app-polyfill/jsdom"
-    ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/src/setupTests.ts"
-    ],
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
-      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
-    ],
-    "testEnvironment": "jsdom",
-    "globals": {
-      "jest": true,
-      "describe": true,
-      "test": true,
-      "expect": true,
-      "beforeEach": true,
-      "afterEach": true,
-      "beforeAll": true,
-      "afterAll": true
-    },
-    "transform": {
-      "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "<rootDir>/config/jest/babelTransform.js",
-      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
-    },
-    "transformIgnorePatterns": [
-      "node_modules/(?!(react-markdown|remark-gfm|rehype-highlight|@testing-library)/)"
-    ],
-    "modulePaths": [
-      "C:\\Users\\Trbl-Yoo\\Workspace\\BlogPortfolio\\blog_portfolio\\src"
-    ],
-    "moduleNameMapper": {
-      "^react-native$": "react-native-web",
-      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
-      "^@Components/(.*)$": "<rootDir>/src/Components/$1",
-      "^@Pages/(.*)$": "<rootDir>/src/Pages/$1",
-      "^@Hooks/(.*)$": "<rootDir>/src/Hooks/$1",
-      "^@Types$": "<rootDir>/src/types"
-    },
-    "moduleFileExtensions": [
-      "web.js",
-      "js",
-      "web.ts",
-      "ts",
-      "web.tsx",
-      "tsx",
-      "json",
-      "web.jsx",
-      "jsx",
-      "node"
-    ],
-    "watchPlugins": [
-      "jest-watch-typeahead/filename",
-      "jest-watch-typeahead/testname"
-    ],
-    "resetMocks": true
+    "config": "jest.config.js"
   },
   "babel": {
     "presets": [
@@ -159,6 +96,7 @@
     ]
   },
   "devDependencies": {
+    "@jest/types": "^30.0.5",
     "@types/highlight.js": "^9.12.4",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",

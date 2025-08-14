@@ -91,6 +91,8 @@ Blogfolio is a an outlet for me (Anthony "TJ" Allen) to post blogs about my lear
 - [x] Create breadcrumb navigation
 - [ ] Add sorting options (date, popularity, alphabetical)
 - [ ] Style pagination and filter components
+- [x] Implement basic component testing
+- [ ] Fix "Global Jest" Errors
 
 ## Day 6: Static Content Management
 - [ ] Set up content folder structure for markdown files

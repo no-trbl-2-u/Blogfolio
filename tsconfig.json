@@ -4,11 +4,12 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
     ],
     "types": [
       "jest",
-      "node"
+      "node",
+      "@testing-library/jest-dom",
     ],
     "allowJs": true,
     "skipLibCheck": true,
