@@ -120,6 +120,7 @@
       "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
       "^@Components/(.*)$": "<rootDir>/src/Components/$1",
       "^@Pages/(.*)$": "<rootDir>/src/Pages/$1",
+      "^@Hooks/(.*)$": "<rootDir>/src/Hooks/$1",
       "^@Types$": "<rootDir>/src/types"
     },
     "moduleFileExtensions": [

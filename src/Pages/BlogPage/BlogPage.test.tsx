@@ -21,28 +21,26 @@ jest.mock('@Components/BlogCard', () => {
 });
 
 // Mock the article index
-jest.mock('@Hooks/useArticle/articleIndex', () => ({
-  mockPosts: [
-    {
-      title: 'Test Post 1',
-      summary: 'Test summary 1',
-      image: 'test-image-1.jpg',
-      slug: 'test-post-1'
-    },
-    {
-      title: 'Test Post 2',
-      summary: 'Test summary 2',
-      image: 'test-image-2.jpg',
-      slug: 'test-post-2'
-    },
-    {
-      title: 'Test Post 3',
-      summary: 'Test summary 3',
-      image: 'test-image-3.jpg',
-      slug: 'test-post-3'
-    }
-  ]
-}));
+jest.mock('@Hooks/useArticle/articleIndex', () => [
+  {
+    title: 'Test Post 1',
+    summary: 'Test summary 1',
+    image: 'test-image-1.jpg',
+    slug: 'test-post-1'
+  },
+  {
+    title: 'Test Post 2',
+    summary: 'Test summary 2',
+    image: 'test-image-2.jpg',
+    slug: 'test-post-2'
+  },
+  {
+    title: 'Test Post 3',
+    summary: 'Test summary 3',
+    image: 'test-image-3.jpg',
+    slug: 'test-post-3'
+  }
+]);
 
 const renderWithRouter = () => {
   return render(
@@ -94,9 +92,7 @@ describe('BlogPage', () => {
 
   test('renders without crashing when no posts available', () => {
     // Mock empty posts array
-    jest.doMock('@Hooks/useArticle/articleIndex', () => ({
-      mockPosts: []
-    }));
+    jest.doMock('@Hooks/useArticle/articleIndex', () => []);
 
     expect(() => renderWithRouter()).not.toThrow();
   });
