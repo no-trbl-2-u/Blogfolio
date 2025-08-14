@@ -186,7 +186,7 @@ const workItems = [
   }
 ];
 
-function WorkPage(): JSX.Element {
+function WorkPage(): React.JSX.Element {
   return (
     <WorkPageContainer>
       <MainTitle>WORK PORTFOLIO</MainTitle>
