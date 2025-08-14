@@ -2,7 +2,7 @@
 import React, { useCallback, useRef, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { ArrowRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 /* Types */
 interface BlogHeaderProps {
@@ -38,7 +38,7 @@ const HeaderContent = styled.div<{ $isExtended: boolean }>`
       padding: 24px;
       position: relative;
       z-index: 10;
-      transition: padding 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: padding 0.8s cubic-bezier(0.4, 0.2, 1);
 `;
 
 const BackButton = styled.button<{ $isExtended: boolean }>`
@@ -108,7 +108,9 @@ const Subtitle = styled.p`
 /* Main Component */
 function BlogHeader({ isExtended = true }: BlogHeaderProps) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
 
   // Refs for DOM elements
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -116,7 +118,7 @@ function BlogHeader({ isExtended = true }: BlogHeaderProps) {
 
   // Handle animation when isExtended prop changes
   useEffect(() => {
-    if (!isExtended) {
+    if (!isExtended && !isNavigating) {
       // Start animation after a brief delay to ensure initial render
       const timer = setTimeout(() => {
         setIsAnimating(true);
@@ -125,14 +127,34 @@ function BlogHeader({ isExtended = true }: BlogHeaderProps) {
     } else {
       setIsAnimating(false);
     }
-  }, [isExtended]);
+  }, [isExtended, isNavigating]);
+
+  // Reset animation state when location changes
+  useEffect(() => {
+    setIsAnimating(false);
+    setIsNavigating(false);
+  }, [location]);
 
   const handleBackClick = useCallback((): void => {
     /* If the header is extended, go home, otherwise go back to the blog */
     if (isExtended) {
-      navigate('/');
+      setIsNavigating(true);
+      // Start closing animation
+      setIsAnimating(true);
+
+      // Navigate after animation starts
+      setTimeout(() => {
+        navigate('/');
+      }, 300);
     } else {
-      navigate('/blog')
+      setIsNavigating(true);
+      // Start closing animation
+      setIsAnimating(true);
+
+      // Navigate after animation starts
+      setTimeout(() => {
+        navigate('/blog');
+      }, 300);
     }
   }, [navigate, isExtended]);
 

@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 /* Components */
 import BlogHeader from '@Components/BlogHeader';
 import BlogCard from '@Components/BlogCard';
-import { mockPosts } from '@Articles/articleIndex';
+import articles from '@Hooks/useArticle/articleIndex';
 
 /* Types */
 import { BlogPost } from '@Types';
@@ -21,7 +21,7 @@ const MainContent = styled.main`
       max-width: 1280px;
       margin: 0 auto;
       padding: 64px 24px;
-      background: url('drop-cieling.png');
+      background: url('drop-ceiling.png');
       background-size: 100% 100%;
       background-position: center;
       background-repeat: repeat;
@@ -39,8 +39,8 @@ function BlogPage() {
       <BlogHeader isExtended />
       <MainContent>
         <CardGrid>
-          {/* TOOO: Wrap each card with a Route */}
-          {mockPosts.map((post: BlogPost, index) => (
+          {/* TODO: Wrap each card with a Route */}
+          {articles.map((post: BlogPost, index: number) => (
             <BlogCard
               key={index}
               index={index}

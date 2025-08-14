@@ -32,13 +32,6 @@
       }
     ],
     "react/jsx-props-no-spreading": "off",
-    "react/function-component-definition": [
-      "error",
-      {
-        "namedComponents": "function-declaration",
-        "unnamedComponents": "arrow-function"
-      }
-    ],
     "no-console": [
       "warn",
       {

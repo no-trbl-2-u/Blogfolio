@@ -21,7 +21,7 @@ jest.mock('@Components/BlogCard', () => {
 });
 
 // Mock the article index
-jest.mock('@Articles/articleIndex', () => ({
+jest.mock('@Hooks/useArticle/articleIndex', () => ({
   mockPosts: [
     {
       title: 'Test Post 1',
@@ -55,7 +55,7 @@ const renderWithRouter = () => {
 describe('BlogPage', () => {
   test('renders blog header with extended layout', () => {
     renderWithRouter();
-    
+
     const blogHeader = screen.getByTestId('blog-header');
     expect(blogHeader).toBeInTheDocument();
     expect(blogHeader).toHaveAttribute('data-extended', 'true');
@@ -63,11 +63,11 @@ describe('BlogPage', () => {
 
   test('renders all mock blog posts', () => {
     renderWithRouter();
-    
+
     expect(screen.getByText('Test Post 1')).toBeInTheDocument();
     expect(screen.getByText('Test Post 2')).toBeInTheDocument();
     expect(screen.getByText('Test Post 3')).toBeInTheDocument();
-    
+
     expect(screen.getByText('Test summary 1')).toBeInTheDocument();
     expect(screen.getByText('Test summary 2')).toBeInTheDocument();
     expect(screen.getByText('Test summary 3')).toBeInTheDocument();
@@ -75,7 +75,7 @@ describe('BlogPage', () => {
 
   test('renders blog cards with correct indices and slugs', () => {
     renderWithRouter();
-    
+
     expect(screen.getByTestId('blog-card-0')).toHaveAttribute('data-slug', 'test-post-1');
     expect(screen.getByTestId('blog-card-1')).toHaveAttribute('data-slug', 'test-post-2');
     expect(screen.getByTestId('blog-card-2')).toHaveAttribute('data-slug', 'test-post-3');
@@ -83,10 +83,10 @@ describe('BlogPage', () => {
 
   test('applies correct styling classes and structure', () => {
     const { container } = renderWithRouter();
-    
+
     // Check for main structural elements
     expect(container.querySelector('main')).toBeInTheDocument();
-    
+
     // The blog cards should be in a grid container
     const cardGrid = container.querySelector('main > div');
     expect(cardGrid).toBeInTheDocument();
@@ -94,10 +94,10 @@ describe('BlogPage', () => {
 
   test('renders without crashing when no posts available', () => {
     // Mock empty posts array
-    jest.doMock('@Articles/articleIndex', () => ({
+    jest.doMock('@Hooks/useArticle/articleIndex', () => ({
       mockPosts: []
     }));
-    
+
     expect(() => renderWithRouter()).not.toThrow();
   });
 
@@ -109,7 +109,7 @@ describe('BlogPage', () => {
 
   test('renders page container with correct styling', () => {
     const { container } = renderWithRouter();
-    
+
     const pageContainer = container.firstChild;
     expect(pageContainer).toBeInTheDocument();
     expect(pageContainer).toHaveStyle('min-height: 100vh');
@@ -117,7 +117,7 @@ describe('BlogPage', () => {
 
   test('renders main content with background image', () => {
     const { container } = renderWithRouter();
-    
+
     const mainContent = container.querySelector('main');
     expect(mainContent).toBeInTheDocument();
     expect(mainContent).toHaveStyle('max-width: 1280px');

@@ -1,5 +1,13 @@
-import { render, screen, fireEvent } from '@testing-library/react';
 import MarkdownRenderer from './MarkdownRenderer';
+import { render, screen } from '@testing-library/react';
+
+// Mock highlight.js
+jest.mock('highlight.js', () => ({
+  highlightElement: jest.fn(),
+}));
+
+// Mock the CSS import
+jest.mock('highlight.js/styles/atom-one-dark.css', () => ({}));
 
 // Mock the problematic ES modules
 jest.mock('react-markdown', () => {
@@ -8,8 +16,7 @@ jest.mock('react-markdown', () => {
   };
 });
 
-jest.mock('remark-gfm', () => () => {});
-jest.mock('rehype-highlight', () => () => {});
+jest.mock('remark-gfm', () => () => { });
 
 // Mock clipboard API
 const mockClipboard = {
@@ -27,7 +34,7 @@ describe('MarkdownRenderer', () => {
   test('renders with markdown content', () => {
     const content = 'Test markdown content';
     render(<MarkdownRenderer content={content} />);
-    
+
     expect(screen.getByTestId('markdown-content')).toBeInTheDocument();
     expect(screen.getByText('Test markdown content')).toBeInTheDocument();
   });
@@ -35,13 +42,13 @@ describe('MarkdownRenderer', () => {
   test('applies custom className', () => {
     const content = 'Test content';
     const { container } = render(<MarkdownRenderer content={content} className="custom-class" />);
-    
+
     expect(container.firstChild).toHaveClass('custom-class');
   });
 
   test('handles empty content', () => {
     const { container } = render(<MarkdownRenderer content="" />);
-    
+
     expect(container.firstChild).toBeInTheDocument();
     expect(screen.getByTestId('markdown-content')).toBeInTheDocument();
   });
@@ -49,7 +56,7 @@ describe('MarkdownRenderer', () => {
   test('renders MarkdownContainer with correct structure', () => {
     const content = 'Test content';
     const { container } = render(<MarkdownRenderer content={content} />);
-    
+
     // Check that the main container is an article element
     const article = container.querySelector('article');
     expect(article).toBeInTheDocument();
@@ -58,7 +65,7 @@ describe('MarkdownRenderer', () => {
   test('passes content to ReactMarkdown component', () => {
     const content = 'This is test markdown content';
     render(<MarkdownRenderer content={content} />);
-    
+
     expect(screen.getByTestId('markdown-content')).toHaveTextContent(content);
   });
 
@@ -73,7 +80,7 @@ const test = 'code';
 - List item
 [Link](https://example.com)
     `;
-    
+
     expect(() => render(<MarkdownRenderer content={content} />)).not.toThrow();
   });
 
@@ -82,7 +89,7 @@ const test = 'code';
     // The actual plugin functionality is mocked, so we just test basic rendering
     const content = 'Test content with plugins';
     const { container } = render(<MarkdownRenderer content={content} />);
-    
+
     expect(container.firstChild).toBeInTheDocument();
   });
 });

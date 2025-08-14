@@ -6,6 +6,10 @@
       "dom.iterable",
       "esnext"
     ],
+    "types": [
+      "jest",
+      "node"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -29,9 +33,6 @@
       ],
       "@Hooks/*": [
         "Hooks/*"
-      ],
-      "@Articles/*": [
-        "Pages/BlogPage/Articles/*"
       ],
       "@Types": [
         "types"

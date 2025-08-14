@@ -2,24 +2,39 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import rehypeHighlight from 'rehype-highlight';
 import styled from '@emotion/styled';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark.css';
+
+// Import specific language support first
+import 'highlight.js/lib/languages/javascript';
+import 'highlight.js/lib/languages/typescript';
+import 'highlight.js/lib/languages/xml';
+import 'highlight.js/lib/languages/css';
+import 'highlight.js/lib/languages/json';
+import 'highlight.js/lib/languages/bash';
+
+// Configure highlight.js after importing languages
+hljs.configure({
+  ignoreUnescapedHTML: true,
+  languages: ['javascript', 'typescript', 'jsx', 'tsx', 'python', 'css', 'html', 'json', 'bash', 'markdown']
+});
 
 /* Types */
 interface MarkdownRendererProps {
-    content: string;
-    className?: string;
+  content: string;
+  className?: string;
 }
 
 interface ImageWithLazyLoadingProps {
-    src: string;
-    alt: string;
-    title?: string;
+  src: string;
+  alt: string;
+  title?: string;
 }
 
 interface CodeBlockProps {
-    children?: React.ReactNode;
-    className?: string;
+  children?: React.ReactNode;
+  className?: string;
 }
 
 // TODO: Implement
@@ -29,9 +44,9 @@ interface CodeBlockProps {
 // }
 
 interface ImageProps {
-    src?: string;
-    alt?: string;
-    title?: string;
+  src?: string;
+  alt?: string;
+  title?: string;
 }
 
 // TODO: Implement
@@ -41,13 +56,13 @@ interface ImageProps {
 // }
 
 interface PreProps {
-    children?: React.ReactNode;
-    [key: string]: any;
+  children?: React.ReactNode;
+  [key: string]: any;
 }
 
 interface LiProps {
-    children?: React.ReactNode;
-    [key: string]: any;
+  children?: React.ReactNode;
+  [key: string]: any;
 }
 
 /* Styled Components */
@@ -63,6 +78,9 @@ const MarkdownContainer = styled.article`
   /* Smooth scrolling for anchor links */
   scroll-behavior: smooth;
   
+  /* Hide scrollbar */
+  overflow: hidden;
+  
   /* Selection styling */
   ::selection {
     background: rgba(59, 130, 246, 0.2);
@@ -73,6 +91,147 @@ const MarkdownContainer = styled.article`
   *:focus {
     outline: 2px solid #3b82f6;
     outline-offset: 2px;
+  }
+  
+  /* Code block styles */
+  .code-block-container {
+    position: relative;
+    margin: 2rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #0d1117;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border: 1px solid #30363d;
+  }
+  
+  .code-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    font-size: 0.875rem;
+    color: #c9d1d9;
+  }
+  
+  .language-label {
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #58a6ff;
+  }
+  
+  .copy-button {
+    background: transparent;
+    border: 1px solid #30363d;
+    color: #c9d1d9;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: #21262d;
+      border-color: #58a6ff;
+      color: white;
+    }
+    
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+  
+  .code-block-pre {
+    margin: 0;
+    padding: 1.5rem;
+    overflow-x: auto;
+    background: #0d1117;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    
+    /* Custom scrollbar */
+    &::-webkit-scrollbar {
+      height: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: #161b22;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #30363d;
+      border-radius: 4px;
+    }
+    
+    &::-webkit-scrollbar-thumb:hover {
+      background: #58a6ff;
+    }
+    
+    /* Syntax highlighting overrides for highlight.js */
+    .hljs-keyword {
+      color: #ff7b72 !important;
+    }
+    
+    .hljs-string {
+      color: #a5d6ff !important;
+    }
+    
+    .hljs-number {
+      color: #79c0ff !important;
+    }
+    
+    .hljs-function {
+      color: #d2a8ff !important;
+    }
+    
+    .hljs-comment {
+      color: #8b949e !important;
+      font-style: italic;
+    }
+    
+    .hljs-variable {
+      color: #ffa198 !important;
+    }
+    
+    .hljs-operator {
+      color: #ff7b72 !important;
+    }
+    
+    .hljs-punctuation {
+      color: #c9d1d9 !important;
+    }
+    
+    .hljs-class-name {
+      color: #d2a8ff !important;
+    }
+    
+    .hljs-property {
+      color: #79c0ff !important;
+    }
+    
+    .hljs-boolean {
+      color: #ff7b72 !important;
+    }
+    
+    .hljs-title {
+      color: #d2a8ff !important;
+    }
+    
+    .hljs-params {
+      color: #ffa198 !important;
+    }
+    
+    .hljs-literal {
+      color: #79c0ff !important;
+    }
+    
+    .hljs-regexp {
+      color: #d2a8ff !important;
+    }
   }
 `;
 
@@ -184,101 +343,36 @@ const StyledLink = styled.a`
   }
 `;
 
-/* Code blocks */
-const CodeBlockContainer = styled.div`
-  position: relative;
-  margin: 2rem 0;
-  border-radius: 8px;
-  overflow: hidden;
-  background: #1f2937;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-`;
 
-const CodeBlockHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1rem;
-  background: #374151;
-  border-bottom: 1px solid #4b5563;
-  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-  font-size: 0.875rem;
-  color: #d1d5db;
-`;
 
-const LanguageLabel = styled.span`
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-`;
+// const StyledCode = styled.code<{ className?: string }>`
+//   font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+//   font-size: 0.875em;
+//   background: #f3f4f6;
+//   color: #dc2626;
+//   padding: 0.125rem 0.25rem;
+//   border-radius: 4px;
+//   border: 1px solid #e5e7eb;
 
-const CopyButton = styled.button`
-  background: transparent;
-  border: 1px solid #6b7280;
-  color: #d1d5db;
-  padding: 0.25rem 0.75rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  
-  &:hover {
-    background: #4b5563;
-    border-color: #9ca3af;
-    color: white;
-  }
-  
-  &:active {
-    transform: scale(0.95);
-  }
-`;
+//   /* Inline code styling */
+//   ${props => props.className?.includes('language-') && `
+//     background: transparent;
+//     color: inherit;
+//     padding: 0;
+//     border: none;
+//     border-radius: 0;
+//   `}
 
-const StyledPre = styled.pre`
-  margin: 0;
-  padding: 1.5rem;
-  overflow-x: auto;
-  background: #1f2937;
-  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-  font-size: 0.875rem;
-  line-height: 1.6;
-  
-  /* Custom scrollbar */
-  &::-webkit-scrollbar {
-    height: 8px;
-  }
-  
-  &::-webkit-scrollbar-track {
-    background: #374151;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    background: #6b7280;
-    border-radius: 4px;
-  }
-  
-  &::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af;
-  }
-`;
-
-const StyledCode = styled.code<{ className?: string }>`
-  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-  font-size: 0.875em;
-  background: #f3f4f6;
-  color: #dc2626;
-  padding: 0.125rem 0.25rem;
-  border-radius: 4px;
-  border: 1px solid #e5e7eb;
-  
-  /* Inline code styling */
-  ${props => props.className?.includes('language-') && `
-    background: transparent;
-    color: inherit;
-    padding: 0;
-    border: none;
-    border-radius: 0;
-  `}
-`;
+//   /* Enhanced inline code styling */
+//   &:not([class*="language-"]) {
+//     background: #f1f5f9;
+//     color: #0f172a;
+//     padding: 0.125rem 0.25rem;
+//     border-radius: 4px;
+//     border: 1px solid #e2e8f0;
+//     font-weight: 500;
+//   }
+// `;
 
 /* Lists */
 const StyledUl = styled.ul`
@@ -517,9 +611,9 @@ const ImagePlaceholder = styled.div<{ $isLoading: boolean }>`
   width: 100%;
   height: 300px;
   background: ${props => props.$isLoading
-        ? 'linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 50%, #d1d5db 100%)'
-        : 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)'
-    };
+    ? 'linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 50%, #d1d5db 100%)'
+    : 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)'
+  };
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -587,156 +681,179 @@ const StyledDel = styled.del`
 // TODO: Extract this into a separate file
 /* Custom Components */
 function ImageWithLazyLoading(props: ImageWithLazyLoadingProps) {
-    const { src, alt, title } = props;
-    const [isLoaded, setIsLoaded] = useState<boolean>(false);
-    const [isError, setIsError] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-    const imgRef = useRef<HTMLImageElement>(null);
+  const { src, alt, title } = props;
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const imgRef = React.useRef<HTMLImageElement>(null);
 
-    useEffect(() => {
-        const img = imgRef.current;
-        if (!img) return;
+  React.useEffect(() => {
+    const img = imgRef.current;
+    if (!img) return;
 
-        const handleLoad = (): void => {
-            setIsLoaded(true);
-            setIsLoading(false);
-        };
+    const handleLoad = (): void => {
+      setIsLoaded(true);
+      setIsLoading(false);
+    };
 
-        const handleError = (): void => {
-            setIsError(true);
-            setIsLoading(false);
-        };
+    const handleError = (): void => {
+      setIsError(true);
+      setIsLoading(false);
+    };
 
-        img.addEventListener('load', handleLoad);
-        img.addEventListener('error', handleError);
+    img.addEventListener('load', handleLoad);
+    img.addEventListener('error', handleError);
 
-        return () => {
-            img.removeEventListener('load', handleLoad);
-            img.removeEventListener('error', handleError);
-        };
-    }, []);
+    return () => {
+      img.removeEventListener('load', handleLoad);
+      img.removeEventListener('error', handleError);
+    };
+  }, []);
 
-    return (
-        <ImageContainer>
-            <StyledImage
-                ref={imgRef}
-                src={src}
-                alt={alt}
-                title={title}
-                $isLoaded={isLoaded}
-                $isError={isError}
-                loading="lazy"
-            />
-            {isLoading && (
-                <ImagePlaceholder $isLoading={true}>
-                    Loading image...
-                </ImagePlaceholder>
-            )}
-            {isError && (
-                <ImagePlaceholder $isLoading={false}>
-                    Failed to load image
-                </ImagePlaceholder>
-            )}
-            {(title || alt) && (
-                <ImageCaption>
-                    {title || alt}
-                </ImageCaption>
-            )}
-        </ImageContainer>
-    );
+  return (
+    <ImageContainer>
+      <StyledImage
+        ref={imgRef}
+        src={src}
+        alt={alt}
+        title={title}
+        $isLoaded={isLoaded}
+        $isError={isError}
+        loading="lazy"
+      />
+      {isLoading && (
+        <ImagePlaceholder $isLoading={true}>
+          Loading image...
+        </ImagePlaceholder>
+      )}
+      {isError && (
+        <ImagePlaceholder $isLoading={false}>
+          Failed to load image
+        </ImagePlaceholder>
+      )}
+      {(title || alt) && (
+        <ImageCaption>
+          {title || alt}
+        </ImageCaption>
+      )}
+    </ImageContainer>
+  );
 }
 
 function CodeBlock(props: CodeBlockProps) {
-    const { children, className } = props;
-    const [isCopied, setIsCopied] = useState<boolean>(false);
-    const language = className?.replace('language-', '') || 'text';
+  const { children, className } = props;
+  const [isCopied, setIsCopied] = useState<boolean>(false);
+  const codeRef = useRef<HTMLPreElement>(null);
 
-    const handleCopy = async (): Promise<void> => {
-        try {
-            await navigator.clipboard.writeText(children as string);
-            setIsCopied(true);
-            setTimeout(() => setIsCopied(false), 2000);
-        } catch (err) {
-            console.error('Failed to copy code:', err);
+  // Extract language from className, default to 'text' if undefined
+  const language = className?.match(/language-(\w+)/)?.[1] || 'text';
+
+  useEffect(() => {
+    if (codeRef.current && language && language !== 'text') {
+      try {
+        // Ensure highlight.js is loaded
+        if (hljs && hljs.highlightElement) {
+          hljs.highlightElement(codeRef.current);
         }
-    };
+      } catch (error) {
+        // Silently fail if highlighting doesn't work
+        console.warn(`Failed to highlight ${language} code:`, error);
+      }
+    }
+  }, [children, language]);
 
-    return (
-        <CodeBlockContainer>
-            <CodeBlockHeader>
-                <LanguageLabel>{language}</LanguageLabel>
-                <CopyButton onClick={handleCopy}>
-                    {isCopied ? 'Copied!' : 'Copy'}
-                </CopyButton>
-            </CodeBlockHeader>
-            <StyledPre>
-                <StyledCode className={className}>
-                    {children}
-                </StyledCode>
-            </StyledPre>
-        </CodeBlockContainer>
-    );
+  const handleCopy = async (): Promise<void> => {
+    try {
+      await navigator.clipboard.writeText(children as string);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy code:', err);
+    }
+  };
+
+  return (
+    <div className="code-block-container">
+      <div className="code-block-header">
+        <span className="language-label">{language}</span>
+        <button className="copy-button" onClick={handleCopy}>
+          {isCopied ? 'Copied!' : 'Copy'}
+        </button>
+      </div>
+      <pre className="code-block-pre">
+        <code ref={codeRef} className={className || 'language-text'}>
+          {children}
+        </code>
+      </pre>
+    </div>
+  );
 }
 
 /* Main Component */
 function MarkdownRenderer({ content, className }: MarkdownRendererProps) {
-    return (
-        <MarkdownContainer className={className}>
-            <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeHighlight]}
-                components={{
-                    h1: StyledH1,
-                    h2: StyledH2,
-                    h3: StyledH3,
-                    h4: StyledH4,
-                    h5: StyledH5,
-                    h6: StyledH6,
-                    p: StyledParagraph,
-                    a: StyledLink,
-                    code: StyledCode,
-                    pre: ({ children, ...props }: PreProps) => {
-                        const child = children as any;
-                        if (child?.type === 'code') {
-                            return <CodeBlock {...props}>{child.props.children}</CodeBlock>;
-                        }
-                        return <StyledPre {...props}>{children}</StyledPre>;
-                    },
-                    ul: StyledUl,
-                    ol: StyledOl,
-                    li: ({ children, ...props }: LiProps) => {
-                        const taskMatch = (children as string)?.match(/^\[([ x])\]\s*(.*)/);
-                        if (taskMatch) {
-                            const isChecked = taskMatch[1] === 'x';
-                            const text = taskMatch[2];
-                            return (
-                                <StyledLi data-task={isChecked} {...props}>
-                                    {text}
-                                </StyledLi>
-                            );
-                        }
-                        return <StyledLi {...props}>{children}</StyledLi>;
-                    },
-                    blockquote: StyledBlockquote,
-                    table: StyledTable,
-                    thead: styled.thead``,
-                    tbody: styled.tbody``,
-                    tr: styled.tr``,
-                    th: styled.th``,
-                    td: styled.td``,
-                    img: ({ src, alt, title }: ImageProps) => (
-                        <ImageWithLazyLoading src={src || ''} alt={alt || ''} title={title} />
-                    ),
-                    hr: StyledHr,
-                    em: StyledEm,
-                    strong: StyledStrong,
-                    del: StyledDel,
-                }}
-            >
-                {content}
-            </ReactMarkdown>
-        </MarkdownContainer>
-    );
+  return (
+    <MarkdownContainer className={className}>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          h1: StyledH1,
+          h2: StyledH2,
+          h3: StyledH3,
+          h4: StyledH4,
+          h5: StyledH5,
+          h6: StyledH6,
+          p: StyledParagraph,
+          a: StyledLink,
+          pre: ({ children, ...props }: PreProps) => {
+            const child = children as any;
+            if (child?.type === 'code') {
+              // Ensure the code element has proper className for language detection
+              const codeProps = child.props || {};
+              const className = codeProps.className || 'language-text';
+              return <CodeBlock className={className}>{codeProps.children}</CodeBlock>;
+            }
+            return <pre {...props}>{children}</pre>;
+          },
+          ul: StyledUl,
+          ol: StyledOl,
+          li: ({ children, ...props }: LiProps) => {
+            // Convert children to string safely for regex matching
+            const childrenText = Array.isArray(children)
+              ? children.join('')
+              : String(children || '');
+
+            const taskMatch = childrenText.match(/^\[([ x])\]\s*(.*)/);
+            if (taskMatch) {
+              const isChecked = taskMatch[1] === 'x';
+              const text = taskMatch[2];
+              return (
+                <StyledLi data-task={isChecked} {...props}>
+                  {text}
+                </StyledLi>
+              );
+            }
+            return <StyledLi {...props}>{children}</StyledLi>;
+          },
+          blockquote: StyledBlockquote,
+          table: StyledTable,
+          thead: styled.thead``,
+          tbody: styled.tbody``,
+          tr: styled.tr``,
+          th: styled.th``,
+          td: styled.td``,
+          img: ({ src, alt, title }: ImageProps) => (
+            <ImageWithLazyLoading src={src || ''} alt={alt || ''} title={title} />
+          ),
+          hr: StyledHr,
+          em: StyledEm,
+          strong: StyledStrong,
+          del: StyledDel,
+        }}
+      >
+        {content}
+      </ReactMarkdown>
+    </MarkdownContainer>
+  );
 }
 
 export default MarkdownRenderer;

@@ -59,7 +59,7 @@ const WORK_ITEMS = [
   { name: 'CODE', orbital: 2, speed: 1.1, radius: 4.2 }
 ];
 
-function OrbitalWorkNavigation() {
+function OrbitalPage() {
   const mountRef = useRef(null);
   const sceneRef = useRef(null);
   const rendererRef = useRef(null);
@@ -410,4 +410,4 @@ function OrbitalWorkNavigation() {
   );
 }
 
-export default OrbitalWorkNavigation;
+export default OrbitalPage;
