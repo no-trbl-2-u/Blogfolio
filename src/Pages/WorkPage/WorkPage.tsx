@@ -193,7 +193,6 @@ function WorkPage(): React.JSX.Element {
       <Subtitle>
         Exploring the intersection of technology and creativity through thoughtful design and robust development
       </Subtitle>
-      
       <WorkGrid>
         {workItems.map((item, index) => (
           <WorkCard key={index} $index={index}>
