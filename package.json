@@ -86,7 +86,9 @@
     "setupFiles": [
       "react-app-polyfill/jsdom"
     ],
-    "setupFilesAfterEnv": [],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.ts"
+    ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
       "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
@@ -98,15 +100,18 @@
       "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
     "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|cjs|ts|tsx)$",
-      "^.+\\.module\\.(css|sass|scss)$"
+      "node_modules/(?!(react-markdown|remark-gfm|rehype-highlight|@testing-library)/)"
     ],
     "modulePaths": [
       "C:\\Users\\Trbl-Yoo\\Workspace\\BlogPortfolio\\blog_portfolio\\src"
     ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
-      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
+      "^@Components/(.*)$": "<rootDir>/src/Components/$1",
+      "^@Pages/(.*)$": "<rootDir>/src/Pages/$1",
+      "^@Articles/(.*)$": "<rootDir>/src/Pages/BlogPage/Articles/$1",
+      "^@Types$": "<rootDir>/src/types"
     },
     "moduleFileExtensions": [
       "web.js",
