@@ -16,11 +16,18 @@ jest.mock('./constants', () => ({
 }));
 
 describe('PlanetInfo', () => {
+  // Create a proper mock THREE.Group object
+  const mockPlanet = {
+    userData: { name: 'Earth' },
+    // Add minimal THREE.Group properties that might be accessed
+    children: [],
+    type: 'Group',
+    isGroup: true
+  } as any; // Use 'as any' to bypass full THREE.Group interface requirements
+
   const mockProps = {
     isOpen: true,
-    planet: {
-      userData: { name: 'Earth' }
-    },
+    planet: mockPlanet,
     onClose: jest.fn()
   };
 
