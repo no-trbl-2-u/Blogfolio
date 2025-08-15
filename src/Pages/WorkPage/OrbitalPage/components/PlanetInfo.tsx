@@ -16,6 +16,12 @@ const Sidebar = styled.div<{ isOpen: boolean }>`
   z-index: 2000;
   overflow-y: auto;
   padding: 2rem;
+
+  @media (max-width: 400px) {
+    width: 85%;
+    right: ${props => props.isOpen ? '0' : '-100%'};
+    text-align: center;
+  }
 `;
 
 const CloseButton = styled.button`

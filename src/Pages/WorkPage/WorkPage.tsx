@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useRef, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { WorkItem } from '@Types';
 
 
@@ -15,6 +16,36 @@ const WorkPageContainer = styled.div`
   padding: 2rem;
   position: relative;
   overflow: hidden;
+`;
+
+const BackButton = styled.button`
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #1e293b;
+  background: transparent;
+  border: none;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  z-index: 10;
+
+  @media (max-width: 768px) {
+    top: 1rem;
+    right: 1rem;
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+`;
+
+const IconContainer = styled.div`
+  transition: transform 0.3s ease;
 `;
 
 const MainTitle = styled.h1`
@@ -168,8 +199,37 @@ const workItems = [
 
 function WorkPage(): React.JSX.Element {
   const navigate = useNavigate();
+  const iconContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleBackClick = () => {
+    navigate('/');
+  };
+
+  const handleMouseEnter = useCallback((): void => {
+    if (iconContainerRef.current) {
+      iconContainerRef.current.style.transform = 'rotate(180deg)';
+    }
+  }, []);
+
+  const handleMouseLeave = useCallback((): void => {
+    if (iconContainerRef.current) {
+      iconContainerRef.current.style.transform = 'rotate(0deg)';
+    }
+  }, []);
+
   return (
     <WorkPageContainer>
+      <BackButton
+        onClick={handleBackClick}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <IconContainer ref={iconContainerRef}>
+          <ArrowLeft size={18} />
+        </IconContainer>
+        Return to the surface
+      </BackButton>
+
       <MainTitle>WORK PORTFOLIO</MainTitle>
       <Subtitle>
         Some work, all play
