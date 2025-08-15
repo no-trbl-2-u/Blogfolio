@@ -1,25 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { Scene3DProps, SceneData } from '@Types';
 
-interface Scene3DProps {
-  onSceneReady: (sceneData: { scene: THREE.Scene; camera: THREE.Camera; renderer: THREE.WebGLRenderer }) => void;
-  onPlanetClick?: (planet: THREE.Object3D) => void;
-  onHoverChange?: (hoverData: any) => void;
-}
-
-interface SceneData {
-  scene: THREE.Scene;
-  camera: THREE.Camera;
-  renderer: THREE.WebGLRenderer;
-}
-
-const Scene3D: React.FC<Scene3DProps> = ({ onSceneReady, onPlanetClick, onHoverChange }) => {
+const Scene3D: React.FC<Scene3DProps> = ({ onSceneReady }: Scene3DProps) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const cameraRef = useRef<THREE.Camera | null>(null);
   const animationRef = useRef<number | null>(null);
-  const clockRef = useRef<THREE.Clock>(new THREE.Clock());
+  // const clockRef = useRef<THREE.Clock>(new THREE.Clock());
 
   useEffect(() => {
     const mountElement = mountRef.current;

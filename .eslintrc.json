@@ -22,13 +22,16 @@
     "@typescript-eslint"
   ],
   "rules": {
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
-        "argsIgnorePattern": "^_"
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_",
+        "destructuredArrayIgnorePattern": "^_"
       }
     ],
     "react/jsx-props-no-spreading": "off",
@@ -46,6 +49,17 @@
     "object-shorthand": "error",
     "prefer-template": "error"
   },
+  "overrides": [
+    {
+      "files": [
+        "src/types/**/*.ts",
+        "src/types/**/*.tsx"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off"
+      }
+    }
+  ],
   "settings": {
     "react": {
       "version": "detect"

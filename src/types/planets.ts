@@ -52,3 +52,20 @@ export interface PlanetsProps {
     onPlanetsReady: (planets: PlanetGroup[]) => void;
     onHoverChange: (handler: (planet: PlanetGroup, isHovered: boolean) => void) => void;
 }
+
+export interface Scene3DProps {
+    onSceneReady: (sceneData: { scene: THREE.Scene; camera: THREE.Camera; renderer: THREE.WebGLRenderer }) => void;
+    onPlanetClick?: (planet: THREE.Object3D) => void;
+    onHoverChange?: (hoverData: any) => void;
+}
+
+export interface SceneData {
+    scene: THREE.Scene;
+    camera: THREE.Camera;
+    renderer: THREE.WebGLRenderer;
+}
+
+export interface SunProps {
+    scene: THREE.Scene | null;
+    onSunReady: (sun: THREE.Mesh) => void;
+}

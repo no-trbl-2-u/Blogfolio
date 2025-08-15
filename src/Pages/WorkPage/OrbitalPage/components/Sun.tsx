@@ -1,14 +1,6 @@
 import React, { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import * as THREE from 'three';
-
-interface SunProps {
-  scene: THREE.Scene | null;
-  onSunReady: (sun: THREE.Mesh) => void;
-}
-
-interface SunRef {
-  setScale: (scale: number) => void;
-}
+import { SunProps, SunRef } from '@Types';
 
 function SunComponent({ scene, onSunReady }: SunProps, ref: React.ForwardedRef<SunRef>) {
   const sunRef = useRef<THREE.Mesh | null>(null);
