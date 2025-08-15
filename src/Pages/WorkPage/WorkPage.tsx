@@ -1,13 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
+import { WorkItem } from '@Types';
 
-interface WorkItem {
-  title: string;
-  description: string;
-  tags: string[];
-  slug: string;
-}
 
 /* Styled Components */
 const WorkPageContainer = styled.div`
@@ -180,7 +175,7 @@ function WorkPage(): React.JSX.Element {
         Some work, all play
       </Subtitle>
       <WorkGrid>
-        {workItems.map((item, index) => (
+        {workItems.map((item: WorkItem, index: number) => (
           <WorkCard key={index} $index={index} onClick={() => navigate(`/work/${item.slug}`)}>
             <ComingSoonBadge>Coming Soon</ComingSoonBadge>
             <WorkTitle>{item.title}</WorkTitle>

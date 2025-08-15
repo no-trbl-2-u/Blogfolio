@@ -7,6 +7,9 @@ declare global {
   const afterEach: any;
   const beforeAll: any;
   const afterAll: any;
+  const module: any;
+  const process: any;
+  const window: any;
 }
 
-export {};
+export { };

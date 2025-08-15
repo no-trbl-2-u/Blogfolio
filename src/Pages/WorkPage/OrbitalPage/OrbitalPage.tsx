@@ -38,7 +38,7 @@ function OrbitalPage() {
   const planetsRef = useRef<PlanetsRef>(null);
 
   // Handle scene ready
-  const handleSceneReady = useCallback(({ scene: newScene, camera, renderer }: { scene: THREE.Scene; camera: THREE.Camera; renderer: THREE.WebGLRenderer }) => {
+  const handleSceneReady = useCallback(({ scene: newScene, camera }: { scene: THREE.Scene; camera: THREE.Camera; renderer: THREE.WebGLRenderer }) => {
     setScene(newScene);
     cameraRef.current = camera;
 
