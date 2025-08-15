@@ -18,7 +18,9 @@ describe('Planets', () => {
   const mockProps = {
     onPlanetsReady: jest.fn(),
     onPlanetHover: jest.fn(),
-    onPlanetClick: jest.fn()
+    onPlanetClick: jest.fn(),
+    onHoverChange: jest.fn(),
+    scene: null,
   };
 
   test('renders without crashing', () => {

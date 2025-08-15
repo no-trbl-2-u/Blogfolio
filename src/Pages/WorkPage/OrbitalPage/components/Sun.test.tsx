@@ -17,9 +17,10 @@ jest.mock('three', () => ({
 
 describe('Sun', () => {
   const mockProps = {
+    scene: null, // Add the missing scene prop
     onSunReady: jest.fn(),
     onSunHover: jest.fn(),
-    onSunClick: jest.fn()
+    onSunClick: jest.fn(),
   };
 
   test('renders without crashing', () => {
