@@ -1,11 +1,20 @@
 import React, { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import * as THREE from 'three';
 
-function SunComponent({ scene, onSunReady }, ref) {
-  const sunRef = useRef(null);
+interface SunProps {
+  scene: THREE.Scene | null;
+  onSunReady: (sun: THREE.Mesh) => void;
+}
 
-  useImperativeHandle(ref, () => ({
-    setScale: (scale) => {
+interface SunRef {
+  setScale: (scale: number) => void;
+}
+
+function SunComponent({ scene, onSunReady }: SunProps, ref: React.ForwardedRef<SunRef>) {
+  const sunRef = useRef<THREE.Mesh | null>(null);
+
+  useImperativeHandle(ref, (): SunRef => ({
+    setScale: (scale: number) => {
       if (sunRef.current) {
         sunRef.current.scale.setScalar(scale);
       }
@@ -22,15 +31,15 @@ function SunComponent({ scene, onSunReady }, ref) {
       emissive: 0xffff00,
       emissiveIntensity: 0.3
     });
-
+    
     const sun = new THREE.Mesh(sunGeometry, sunMaterial);
     sun.castShadow = true;
     sun.receiveShadow = true;
     sun.userData = { type: 'sun' };
-
+    
     scene.add(sun);
     sunRef.current = sun;
-
+    
     // Notify parent that sun is ready
     onSunReady(sun);
 
@@ -59,6 +68,6 @@ function SunComponent({ scene, onSunReady }, ref) {
   return null; // This component doesn't render anything visible
 }
 
-const Sun = forwardRef(SunComponent);
+const Sun = forwardRef<SunRef, SunProps>(SunComponent);
 
 export default Sun;

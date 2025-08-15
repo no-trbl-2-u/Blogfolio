@@ -98,6 +98,7 @@
   "devDependencies": {
     "@jest/types": "^30.0.5",
     "@types/highlight.js": "^9.12.4",
+    "@types/three": "^0.179.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "eslint-plugin-emotion": "^11.0.0",

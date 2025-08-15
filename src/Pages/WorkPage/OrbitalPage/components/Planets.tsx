@@ -1,24 +1,14 @@
 import React, { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import * as THREE from 'three';
+import { PLANETS } from './constants';
+import { PlanetGroup, PlanetsProps, PlanetsRef, PlanetData } from '@Types';
 
-// Planet data with realistic orbital parameters and better colors
-const PLANETS = [
-  { name: 'MERCURY', orbital: 0, speed: 0.8, radius: 3, color: 0x6B6B6B, size: 0.4 },    // Gray-brown
-  { name: 'VENUS', orbital: 1, speed: 0.6, radius: 4, color: 0xFFB347, size: 0.6 },      // Orange-yellow
-  { name: 'EARTH', orbital: 2, speed: 0.5, radius: 5, color: 0x4A90E2, size: 0.7 },      // Blue
-  { name: 'MARS', orbital: 3, speed: 0.7, radius: 6, color: 0xC14444, size: 0.5 },       // Red
-  { name: 'JUPITER', orbital: 4, speed: 0.3, radius: 7, color: 0xD4AF37, size: 1.2 },    // Gold
-  { name: 'SATURN', orbital: 5, speed: 0.25, radius: 8, color: 0xF4D03F, size: 1.0 },    // Yellow
-  { name: 'URANUS', orbital: 6, speed: 0.2, radius: 9, color: 0x85C1E9, size: 0.8 },     // Light blue
-  { name: 'NEPTUNE', orbital: 7, speed: 0.15, radius: 10, color: 0x5DADE2, size: 0.8 }   // Blue
-];
+function PlanetsComponent({ scene, onPlanetsReady, onHoverChange }: PlanetsProps, ref: React.ForwardedRef<PlanetsRef>) {
+  const planetsRef = useRef<PlanetGroup[]>([]);
+  const animationRef = useRef<number | null>(null);
 
-function PlanetsComponent({ scene, onPlanetsReady, onHoverChange }, ref) {
-  const planetsRef = useRef([]);
-  const animationRef = useRef(null);
-
-  useImperativeHandle(ref, () => ({
-    setPlanetScale: (planet, scale) => {
+  useImperativeHandle(ref, (): PlanetsRef => ({
+    setPlanetScale: (planet: PlanetGroup, scale: number) => {
       if (planet) {
         planet.scale.setScalar(THREE.MathUtils.lerp(planet.scale.x, scale, 0.1));
       }
@@ -29,8 +19,8 @@ function PlanetsComponent({ scene, onPlanetsReady, onHoverChange }, ref) {
     if (!scene) return;
 
     // Create planets
-    const createPlanet = (planetData, index) => {
-      const group = new THREE.Group();
+    const createPlanet = (planetData: PlanetData, index: number): PlanetGroup => {
+      const group = new THREE.Group() as PlanetGroup;
 
       const geometry = new THREE.SphereGeometry(planetData.size, 24, 24);
       const material = new THREE.MeshLambertMaterial({
@@ -47,6 +37,8 @@ function PlanetsComponent({ scene, onPlanetsReady, onHoverChange }, ref) {
       // Create planet name text
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d');
+      if (!context) return group;
+
       canvas.width = 256;
       canvas.height = 64;
 
@@ -55,7 +47,7 @@ function PlanetsComponent({ scene, onPlanetsReady, onHoverChange }, ref) {
 
       // Text styling
       context.fillStyle = '#f8fafc';
-      context.font = 'bold 16px Arial, sans-serif';
+      context.font = 'bold 24px Arial, sans-serif';
       context.textAlign = 'center';
       context.textBaseline = 'middle';
       context.fillText(planetData.name, canvas.width / 2, canvas.height / 2);
@@ -143,7 +135,7 @@ function PlanetsComponent({ scene, onPlanetsReady, onHoverChange }, ref) {
   // Expose hover handler to parent
   useEffect(() => {
     if (onHoverChange) {
-      onHoverChange((planet, isHovered) => {
+      onHoverChange((planet: PlanetGroup, isHovered: boolean) => {
         if (planet) {
           const targetScale = isHovered ? 1.3 : 1;
           planet.scale.setScalar(THREE.MathUtils.lerp(planet.scale.x, targetScale, 0.1));
@@ -155,6 +147,6 @@ function PlanetsComponent({ scene, onPlanetsReady, onHoverChange }, ref) {
   return null; // This component doesn't render anything visible
 }
 
-const Planets = forwardRef(PlanetsComponent);
+const Planets = forwardRef<PlanetsRef, PlanetsProps>(PlanetsComponent);
 
 export default Planets;

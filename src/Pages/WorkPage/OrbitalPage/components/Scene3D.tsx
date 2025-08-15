@@ -1,13 +1,25 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-const Scene3D = ({ onSceneReady, onPlanetClick, onHoverChange }) => {
-  const mountRef = useRef(null);
-  const sceneRef = useRef(null);
-  const rendererRef = useRef(null);
-  const cameraRef = useRef(null);
-  const animationRef = useRef(null);
-  const clockRef = useRef(new THREE.Clock());
+interface Scene3DProps {
+  onSceneReady: (sceneData: { scene: THREE.Scene; camera: THREE.Camera; renderer: THREE.WebGLRenderer }) => void;
+  onPlanetClick?: (planet: THREE.Object3D) => void;
+  onHoverChange?: (hoverData: any) => void;
+}
+
+interface SceneData {
+  scene: THREE.Scene;
+  camera: THREE.Camera;
+  renderer: THREE.WebGLRenderer;
+}
+
+const Scene3D: React.FC<Scene3DProps> = ({ onSceneReady, onPlanetClick, onHoverChange }) => {
+  const mountRef = useRef<HTMLDivElement>(null);
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const cameraRef = useRef<THREE.Camera | null>(null);
+  const animationRef = useRef<number | null>(null);
+  const clockRef = useRef<THREE.Clock>(new THREE.Clock());
 
   useEffect(() => {
     const mountElement = mountRef.current;
@@ -45,13 +57,16 @@ const Scene3D = ({ onSceneReady, onPlanetClick, onHoverChange }) => {
     scene.add(directionalLight);
 
     // Notify parent that scene is ready
-    onSceneReady({ scene, camera, renderer });
+    const sceneData: SceneData = { scene, camera, renderer };
+    onSceneReady(sceneData);
 
     // Handle window resize
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      if (camera && renderer) {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
     };
     window.addEventListener('resize', handleResize);
 
@@ -73,8 +88,10 @@ const Scene3D = ({ onSceneReady, onPlanetClick, onHoverChange }) => {
     if (!sceneRef.current || !rendererRef.current || !cameraRef.current) return;
 
     const animate = () => {
-      rendererRef.current.render(sceneRef.current, cameraRef.current);
-      animationRef.current = requestAnimationFrame(animate);
+      if (rendererRef.current && sceneRef.current && cameraRef.current) {
+        rendererRef.current.render(sceneRef.current, cameraRef.current);
+        animationRef.current = requestAnimationFrame(animate);
+      }
     };
 
     animate();
