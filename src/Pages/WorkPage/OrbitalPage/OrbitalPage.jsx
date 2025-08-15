@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 // Styled components
 const Container = styled.div`
@@ -49,17 +50,20 @@ const Instruction = styled.div`
 `;
 
 // Work items data - more atomic orbital planes
-const WORK_ITEMS = [
-  { name: 'WEBSITE', orbital: 0, speed: 0.8, radius: 4 },
-  { name: 'MOBILE', orbital: 1, speed: 1.2, radius: 3.5 },
-  { name: 'BRAND', orbital: 2, speed: 0.6, radius: 5 },
-  { name: 'BACKEND', orbital: 3, speed: 0.9, radius: 4.5 },
-  { name: 'DESIGN', orbital: 4, speed: 1.5, radius: 3 },
-  { name: 'APPS', orbital: 0, speed: 0.7, radius: 5.5 },
-  { name: 'CODE', orbital: 2, speed: 1.1, radius: 4.2 }
+const PLANETS = [
+  { name: 'MERCURY', orbital: 0, speed: 0.8, radius: 4 },
+  { name: 'VENUS', orbital: 1, speed: 1.2, radius: 3.5 },
+  { name: 'EARTH', orbital: 2, speed: 0.6, radius: 5 },
+  { name: 'MARS', orbital: 3, speed: 0.9, radius: 4.5 },
+  { name: 'JUPITER', orbital: 4, speed: 1.5, radius: 3 },
+  { name: 'SATURN', orbital: 0, speed: 0.7, radius: 5.5 },
+  { name: 'URANUS', orbital: 2, speed: 1.1, radius: 4.2 },
+  { name: 'NEPTUNE', orbital: 3, speed: 1.3, radius: 3.8 },
+  { name: 'PLUTO', orbital: 4, speed: 2.6, radius: 10 }
 ];
 
 function OrbitalPage() {
+  const navigate = useNavigate();
   const mountRef = useRef(null);
   const sceneRef = useRef(null);
   const rendererRef = useRef(null);
@@ -214,7 +218,7 @@ function OrbitalPage() {
     };
 
     // Create all work spheres
-    spheresRef.current = WORK_ITEMS.map(createWorkSphere);
+    spheresRef.current = PLANETS.map(createWorkSphere);
 
     // Store text elements for camera-facing updates
     textElementsRef.current = spheresRef.current.map(sphere => sphere.userData.textMesh);
@@ -232,7 +236,8 @@ function OrbitalPage() {
       if (intersects.length > 0) {
         const clickedObject = intersects[0].object;
         if (clickedObject === backSphere) {
-          console.log('Navigate back');
+          // console.log('Navigate back');
+          navigate('/work')
         } else {
           // Find which work sphere was clicked
           const clickedSphere = spheresRef.current.find(sphere =>

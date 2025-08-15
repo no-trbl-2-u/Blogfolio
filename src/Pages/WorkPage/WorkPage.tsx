@@ -1,5 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
+
+interface WorkItem {
+  title: string;
+  description: string;
+  tags: string[];
+  slug: string;
+}
 
 /* Styled Components */
 const WorkPageContainer = styled.div`
@@ -155,47 +163,24 @@ const ComingSoonBadge = styled.div`
 /* Work Items Data */
 const workItems = [
   {
-    title: 'Web Development',
-    description: 'Full-stack web applications using modern React, Node.js, and cloud technologies.',
-    tags: ['React', 'Node.js', 'TypeScript', 'AWS']
-  },
-  {
-    title: 'Mobile Apps',
-    description: 'Cross-platform mobile applications with React Native and native iOS/Android development.',
-    tags: ['React Native', 'iOS', 'Android', 'Flutter']
-  },
-  {
-    title: 'Brand Design',
-    description: 'Complete brand identity design including logos, color schemes, and visual guidelines.',
-    tags: ['Figma', 'Illustrator', 'Branding', 'UI/UX']
-  },
-  {
-    title: 'Backend Systems',
-    description: 'Scalable backend architectures, APIs, and database design for modern applications.',
-    tags: ['Node.js', 'Python', 'PostgreSQL', 'MongoDB']
-  },
-  {
-    title: 'UI/UX Design',
-    description: 'User-centered design solutions focused on creating intuitive and engaging experiences.',
-    tags: ['Figma', 'Sketch', 'Prototyping', 'User Research']
-  },
-  {
-    title: 'Cloud Solutions',
-    description: 'Cloud infrastructure setup, deployment pipelines, and DevOps automation.',
-    tags: ['AWS', 'Docker', 'CI/CD', 'Kubernetes']
+    title: 'Orbiting Planets',
+    description: 'An implementation of the orbital mechanics of planets in the solar system',
+    tags: ['React', 'Node.js', 'TypeScript', 'three.js', 'Animation'],
+    slug: 'orbital'
   }
 ];
 
 function WorkPage(): React.JSX.Element {
+  const navigate = useNavigate();
   return (
     <WorkPageContainer>
       <MainTitle>WORK PORTFOLIO</MainTitle>
       <Subtitle>
-        Exploring the intersection of technology and creativity through thoughtful design and robust development
+        Some work, all play
       </Subtitle>
       <WorkGrid>
         {workItems.map((item, index) => (
-          <WorkCard key={index} $index={index}>
+          <WorkCard key={index} $index={index} onClick={() => navigate(`/work/${item.slug}`)}>
             <ComingSoonBadge>Coming Soon</ComingSoonBadge>
             <WorkTitle>{item.title}</WorkTitle>
             <WorkDescription>{item.description}</WorkDescription>

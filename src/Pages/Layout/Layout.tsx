@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import BlogHeader from '@Components/BlogHeader';
 
 const LayoutContainer = styled.div`
     display: flex;
@@ -18,8 +19,7 @@ function Layout({ children, defaultLayout = false }: { children: React.ReactNode
     }
     return (
         <LayoutContainer>
-            <div>TODO - HEADER</div>
-            <div>TODO - Routing</div>
+            <BlogHeader isExtended />
             {children}
         </LayoutContainer>
     )
