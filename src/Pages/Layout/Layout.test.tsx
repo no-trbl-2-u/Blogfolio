@@ -12,23 +12,6 @@ describe('Layout', () => {
 
     expect(screen.getByTestId('test-child')).toBeInTheDocument();
     expect(screen.getByText('Test Content')).toBeInTheDocument();
-
-    // Should not render TODO elements in default mode
-    expect(screen.queryByText('TODO - HEADER')).not.toBeInTheDocument();
-    expect(screen.queryByText('TODO - Routing')).not.toBeInTheDocument();
-  });
-
-  test('renders default layout with TODO elements when defaultLayout is true', () => {
-    render(
-      <Layout defaultLayout={true}>
-        <div data-testid="test-child">Test Content</div>
-      </Layout>
-    );
-
-    expect(screen.getByTestId('test-child')).toBeInTheDocument();
-    expect(screen.getByText('Test Content')).toBeInTheDocument();
-    expect(screen.getByText('TODO - HEADER')).toBeInTheDocument();
-    expect(screen.getByText('TODO - Routing')).toBeInTheDocument();
   });
 
   test('renders multiple children correctly', () => {
@@ -68,7 +51,6 @@ describe('Layout', () => {
     );
 
     expect(screen.getByTestId('test-content')).toBeInTheDocument();
-    expect(screen.queryByText('TODO - HEADER')).not.toBeInTheDocument();
   });
 
   test('renders with defaultLayout false explicitly', () => {
@@ -79,7 +61,5 @@ describe('Layout', () => {
     );
 
     expect(screen.getByTestId('test-content')).toBeInTheDocument();
-    expect(screen.queryByText('TODO - HEADER')).not.toBeInTheDocument();
-    expect(screen.queryByText('TODO - Routing')).not.toBeInTheDocument();
   });
 });

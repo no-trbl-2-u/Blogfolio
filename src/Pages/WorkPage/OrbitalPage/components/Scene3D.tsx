@@ -38,6 +38,7 @@ const Scene3D: React.FC<Scene3DProps> = ({ onSceneReady, onPlanetClick, onHoverC
 
     // Renderer setup
     const renderer = new THREE.WebGLRenderer({ antialias: true });
+    // TODO: Make size dynamic based on if the sidebar is open or not
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
