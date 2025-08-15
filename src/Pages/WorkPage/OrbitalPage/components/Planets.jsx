@@ -1,16 +1,16 @@
 import React, { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import * as THREE from 'three';
 
-// Planet data with realistic orbital parameters
+// Planet data with realistic orbital parameters and better colors
 const PLANETS = [
-  { name: 'MERCURY', orbital: 0, speed: 0.8, radius: 3, color: 0x8B4513, size: 0.4 },    // Brown
-  { name: 'VENUS', orbital: 1, speed: 0.6, radius: 4, color: 0xFFD700, size: 0.6 },      // Gold
-  { name: 'EARTH', orbital: 2, speed: 0.5, radius: 5, color: 0x4169E1, size: 0.7 },      // Blue
-  { name: 'MARS', orbital: 3, speed: 0.7, radius: 6, color: 0xDC143C, size: 0.5 },       // Red
-  { name: 'JUPITER', orbital: 4, speed: 0.3, radius: 7, color: 0xDAA520, size: 1.2 },    // Goldenrod
-  { name: 'SATURN', orbital: 5, speed: 0.25, radius: 8, color: 0xF4A460, size: 1.0 },    // Sandy brown
-  { name: 'URANUS', orbital: 6, speed: 0.2, radius: 9, color: 0x40E0D0, size: 0.8 },     // Turquoise
-  { name: 'NEPTUNE', orbital: 7, speed: 0.15, radius: 10, color: 0x1E90FF, size: 0.8 }   // Dodger blue
+  { name: 'MERCURY', orbital: 0, speed: 0.8, radius: 3, color: 0x6B6B6B, size: 0.4 },    // Gray-brown
+  { name: 'VENUS', orbital: 1, speed: 0.6, radius: 4, color: 0xFFB347, size: 0.6 },      // Orange-yellow
+  { name: 'EARTH', orbital: 2, speed: 0.5, radius: 5, color: 0x4A90E2, size: 0.7 },      // Blue
+  { name: 'MARS', orbital: 3, speed: 0.7, radius: 6, color: 0xC14444, size: 0.5 },       // Red
+  { name: 'JUPITER', orbital: 4, speed: 0.3, radius: 7, color: 0xD4AF37, size: 1.2 },    // Gold
+  { name: 'SATURN', orbital: 5, speed: 0.25, radius: 8, color: 0xF4D03F, size: 1.0 },    // Yellow
+  { name: 'URANUS', orbital: 6, speed: 0.2, radius: 9, color: 0x85C1E9, size: 0.8 },     // Light blue
+  { name: 'NEPTUNE', orbital: 7, speed: 0.15, radius: 10, color: 0x5DADE2, size: 0.8 }   // Blue
 ];
 
 function PlanetsComponent({ scene, onPlanetsReady, onHoverChange }, ref) {
@@ -44,12 +44,43 @@ function PlanetsComponent({ scene, onPlanetsReady, onHoverChange }, ref) {
       sphere.receiveShadow = true;
       group.add(sphere);
 
+      // Create planet name text
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      canvas.width = 256;
+      canvas.height = 64;
+
+      // Clear canvas
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Text styling
+      context.fillStyle = '#f8fafc';
+      context.font = 'bold 16px Arial, sans-serif';
+      context.textAlign = 'center';
+      context.textBaseline = 'middle';
+      context.fillText(planetData.name, canvas.width / 2, canvas.height / 2);
+
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.needsUpdate = true;
+
+      const textMaterial = new THREE.MeshBasicMaterial({
+        map: texture,
+        transparent: true,
+        opacity: 0.8
+      });
+
+      const textGeometry = new THREE.PlaneGeometry(2, 0.5);
+      const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+      textMesh.position.set(0, -planetData.size - 0.3, 0); // Position below planet
+      group.add(textMesh);
+
       // Store orbital properties
       group.userData = {
         ...planetData,
         angle: Math.random() * Math.PI * 2,
         sphere,
-        index
+        index,
+        textMesh
       };
 
       scene.add(group);
@@ -90,6 +121,11 @@ function PlanetsComponent({ scene, onPlanetsReady, onHoverChange }, ref) {
 
         // Rotate planet
         planet.rotation.y += 0.01;
+
+        // Make text always face camera
+        if (data.textMesh) {
+          data.textMesh.lookAt(planet.position.clone().add(new THREE.Vector3(0, 0, 10)));
+        }
       });
 
       animationRef.current = requestAnimationFrame(animate);

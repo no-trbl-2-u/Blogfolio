@@ -84,6 +84,7 @@ const WorkGrid = styled.div`
 `;
 
 const WorkCard = styled.div<{ $index: number }>`
+  cursor: pointer;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);

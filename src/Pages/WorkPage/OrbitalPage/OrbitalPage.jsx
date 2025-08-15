@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import * as THREE from 'three';
 import { Scene3D, Sun, Planets, UI } from './components';
+import PlanetInfo from './components/PlanetInfo';
 
 // Styled components
 const Container = styled.div`
@@ -21,6 +22,8 @@ function OrbitalPage() {
   const [planets, setPlanets] = useState([]);
   const [hoveredSphere, setHoveredSphere] = useState(null);
   const [hoveredSun, setHoveredSun] = useState(false);
+  const [selectedPlanet, setSelectedPlanet] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const raycasterRef = useRef(null);
   const mouseRef = useRef(null);
@@ -57,6 +60,18 @@ function OrbitalPage() {
     window.hoverHandler = hoverHandler;
   }, []);
 
+  // Handle planet selection
+  const handlePlanetSelect = useCallback((planet) => {
+    setSelectedPlanet(planet);
+    setIsSidebarOpen(true);
+  }, []);
+
+  // Handle sidebar close
+  const handleSidebarClose = useCallback(() => {
+    setIsSidebarOpen(false);
+    setSelectedPlanet(null);
+  }, []);
+
   // Mouse interaction setup
   useEffect(() => {
     if (!scene || !sun || !planets.length) return;
@@ -65,21 +80,21 @@ function OrbitalPage() {
 
     const handleMouseMove = (event) => {
       if (!mouseRef.current || !cameraRef.current) return;
-
+      
       mouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
     };
 
     const handleClick = (event) => {
       if (!raycasterRef.current || !mouseRef.current || !cameraRef.current) return;
-
+      
       console.log('Click detected - checking for intersections');
       raycasterRef.current.setFromCamera(mouseRef.current, cameraRef.current);
       const intersects = raycasterRef.current.intersectObjects([...planets, sun], true);
 
       if (intersects.length > 0) {
         const clickedObject = intersects[0].object;
-
+        
         if (clickedObject === sun) {
           // Only navigate on explicit click, not on component mount
           console.log('Sun clicked - navigating to /work');
@@ -91,7 +106,13 @@ function OrbitalPage() {
           );
           if (clickedPlanet) {
             console.log(`Planet clicked: ${clickedPlanet.userData.name}`);
+            handlePlanetSelect(clickedPlanet);
           }
+        }
+      } else {
+        // Click outside any object - close sidebar if open
+        if (isSidebarOpen) {
+          handleSidebarClose();
         }
       }
     };
@@ -148,7 +169,7 @@ function OrbitalPage() {
       clearInterval(hoverInterval);
       delete window.hoverHandler;
     };
-  }, [scene, sun, planets, navigate]);
+  }, [scene, sun, planets, navigate, handlePlanetSelect, isSidebarOpen, handleSidebarClose]);
 
   const isHovered = hoveredSphere || hoveredSun;
 
@@ -158,6 +179,11 @@ function OrbitalPage() {
       <Scene3D onSceneReady={handleSceneReady} />
       {scene && <Sun ref={sunRef} scene={scene} onSunReady={handleSunReady} />}
       {scene && <Planets ref={planetsRef} scene={scene} onPlanetsReady={handlePlanetsReady} onHoverChange={handleHoverChange} />}
+      <PlanetInfo
+        isOpen={isSidebarOpen}
+        planet={selectedPlanet}
+        onClose={handleSidebarClose}
+      />
     </Container>
   );
 }
