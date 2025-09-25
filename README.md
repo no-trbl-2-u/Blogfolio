@@ -334,3 +334,5 @@ Blogfolio is a an outlet for me (Anthony "TJ" Allen) to post blogs about my lear
 - **Domain & SSL**: Route 53 + Certificate Manager
 - **Monitoring**: CloudWatch
 - **CI/CD**: CodePipeline or GitHub Actions
+
+understood
